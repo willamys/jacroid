@@ -1,0 +1,2 @@
+#set($name = "importscriptdb")
+#include("$nome_projeto\src\fachada\temp\\$utility.firstToLowerCase($class.Name)${name}.txt")

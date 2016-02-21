@@ -1,0 +1,25 @@
+package telas;
+
+import com.src.android.R;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+ /**@author Willamys Araujo
+ **Generate for Implementor**/
+
+public class Main extends Activity{
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+#include("$nome_projeto\src\fachada\temp\buttons_main_activity.txt")
+		
+	}
+}

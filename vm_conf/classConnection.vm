@@ -1,0 +1,53 @@
+package modelo;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
+
+/**@author Willamys Araujo
+	**Generate for Jacroid**/
+
+public class Connection extends SQLiteOpenHelper{
+	
+	/**Criando a Tabela do Banco de Dados**/
+	private String SCRIPTCREATE;
+	private String SCRIPTDELETE;
+	
+	private static final String TAG = "SQLiteHelper";
+	
+		/**Nome do Banco de Dados**/
+	private static final String DATABASE_NAME = "bd_$nome_projeto";
+	   
+	/**Versao do Banco de Dados**/
+	private static final int DATABASE_VERSION = 1;	
+
+
+#include("$nome_projeto\src\fachada\temp\importScriptDB.txt")
+
+
+	public Connection(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+	
+	#include("$nome_projeto\src\fachada\temp\importScriptDB1.txt")
+	
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.w(TAG, "Upgrading database from version " + oldVersion 
+                + " to "
+                + newVersion + ", which will destroy all old data");
+	#include("$nome_projeto\src\fachada\temp\importScriptDB2.txt")
+		onCreate(db);
+	}
+	
+
+}

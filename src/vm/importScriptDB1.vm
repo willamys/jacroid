@@ -1,0 +1,1 @@
+		db.execSQL(SCRIPT_DB_CREATE_$utility.AllToUpperCase($class.Name));

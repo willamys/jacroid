@@ -1,0 +1,320 @@
+package telas;
+
+import modelo.$utility.firstToUpperCase($class.Name)DAO;
+import modelo.$utility.firstToUpperCase($class.Name)VO;
+import modelo.ConnectionException;
+import java.util.ArrayList;
+import fachada.Fachada;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import java.util.Vector;
+import android.widget.ArrayAdapter;
+import com.src.android.R;
+## importar quando houver chave estrangeira
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input == "select" && $atributoCorrente.TypeDataData == "int")
+import modelo.$utility.firstToUpperCase($atributoCorrente.Classname)VO;
+#end
+#end
+ /**@author Willamys Araujo
+ **Generate for Implementor**/
+
+public class $utility.firstToUpperCase($class.Name)AlterarActivity extends Activity{
+
+	public static final String tag = "$utility.firstToUpperCase($class.Name)AlterarActivity";
+
+	#foreach($atributoCorrente in $class.Attributes)
+	public #if($atributoCorrente.Input == "text") EditText #elseif($atributoCorrente.Input == "hidden") TextView #elseif($atributoCorrente.Input == "select") Spinner #elseif($atributoCorrente.Input == "checkbox") CheckBox #elseif($atributoCorrente.Input == "radiobutton") RadioGroup #end $utility.firstToLowerCase($atributoCorrente.Name)Field;
+	#end
+	String message;
+		long idB;
+	String valor ;
+	$utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name) = new $utility.firstToUpperCase($class.Name)VO();
+	//objeto criado com o intuito de obter os dados alterados
+	$utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name)Inserir = new $utility.firstToUpperCase($class.Name)VO();
+
+	private void initControls() {
+#foreach($atributoCorrente in $class.Attributes)	
+	$utility.firstToLowerCase($atributoCorrente.Name)Field = #if($atributoCorrente.Input == "text")(EditText) findViewById(R.id.EditText$utility.firstToLowerCase($atributoCorrente.Name)); #elseif($atributoCorrente.Input == "hidden") (TextView) findViewById(R.id.TextView$utility.firstToLowerCase($atributoCorrente.Name)); #elseif($atributoCorrente.Input == "select") (Spinner) findViewById(R.id.Spinner$utility.firstToLowerCase($atributoCorrente.Name)); #elseif($atributoCorrente.Input == "checkbox") (CheckBox) findViewById(R.id.CheckBox$utility.firstToLowerCase($atributoCorrente.Name));#elseif($atributoCorrente.Input == "radiobutton") (RadioGroup) findViewById(R.id.RadioGroup$utility.firstToLowerCase($atributoCorrente.Name));
+	#end#end}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.$utility.AllToLowerCase($class.Name)alteraractivity);
+		initControls();
+		//pegar valor passado como parametro
+		Intent intr = getIntent();
+		valor = intr.getStringExtra("valor");
+
+		Log.i(tag, " Valor passado " + "[ " + valor + " ]");
+
+		obj$utility.firstToUpperCase($class.Name) = Fachada.getInstance().get$utility.firstToUpperCase($class.Name)ById(this,Integer.parseInt(valor));
+		
+		obj$utility.firstToUpperCase($class.Name)Inserir = new $utility.firstToUpperCase($class.Name)VO();
+
+
+
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input == "select" && $atributoCorrente.TypeDataData == "int")
+
+			/***INICIO Código usado quando houver um spinner do tipo Int**/
+			ArrayList<$utility.firstToUpperCase($atributoCorrente.Classname)VO> array$utility.firstToUpperCase($atributoCorrente.Classname) = new ArrayList<$utility.firstToUpperCase($atributoCorrente.Classname)VO>();
+		array$utility.firstToUpperCase($atributoCorrente.Classname) = Fachada.getInstance().getAll$utility.firstToUpperCase($atributoCorrente.Classname) (${utility.firstToUpperCase($class.Name)}AlterarActivity.this);
+		Vector $utility.firstToLowerCase($atributoCorrente.Name)List = new Vector();		
+		if(array${utility.firstToUpperCase($atributoCorrente.Classname)}.size() > 0 && array$utility.firstToUpperCase($atributoCorrente.Classname) !=null){
+		for (int i = 0; i < array${utility.firstToUpperCase($atributoCorrente.Classname)}.size(); i++) {
+			//passando o nome para o select(spinner)
+			${utility.firstToLowerCase($atributoCorrente.Name)}List.addElement(array${utility.firstToUpperCase($atributoCorrente.Classname)}.get(i).id$utility.firstToUpperCase($atributoCorrente.Classname));
+		}
+			}
+			
+		ArrayAdapter $utility.firstToLowerCase($atributoCorrente.Name)ArrayAdapter = new ArrayAdapter(this,
+               android.R.layout.simple_spinner_dropdown_item, $utility.firstToLowerCase($atributoCorrente.Name)List);
+        //adicionando arraylist ao select(spinner)
+		${utility.firstToLowerCase($atributoCorrente.Name)}Field.setAdapter($utility.firstToLowerCase($atributoCorrente.Name)ArrayAdapter);
+		
+        $utility.firstToLowerCase($atributoCorrente.Name)Field .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                    int arg2, long arg3) {
+						obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name)  = Integer.parseInt(arg0.getSelectedItem().toString());
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {
+                System.out.println("Nothing selected: " + arg0);
+            }
+        });
+	/***FIM Spinner para tipo Int**/
+#elseif($atributoCorrente.Input == "select" && $atributoCorrente.TypeDataData == "String")
+		/**INICIO Spinner para tipo String**/
+		//vetor com as opcoes do select(spinner)
+		Vector<String> listaItens$utility.firstToUpperCase($atributoCorrente.Name) = new Vector<String>();
+				listaItens${utility.firstToUpperCase($atributoCorrente.Name)}.addElement("");
+		listaItens${utility.firstToUpperCase($atributoCorrente.Name)}.addElement("opcao 1");
+		listaItens${utility.firstToUpperCase($atributoCorrente.Name)}.addElement("opcao 2");
+		
+		//criando arrayadpter adicionando o vetor criado
+		ArrayAdapter arrayItens$utility.firstToUpperCase($atributoCorrente.Name) = new ArrayAdapter(this,
+	               android.R.layout.simple_spinner_dropdown_item, listaItens$utility.firstToUpperCase($atributoCorrente.Name));
+	        //adicionando arrayadpater ao select(spinner)
+		${utility.firstToLowerCase($atributoCorrente.Name)}Field.setAdapter(arrayItens$utility.firstToUpperCase($atributoCorrente.Name));
+		
+		//metodo para obter a selecao no select(spinner)
+		${utility.firstToLowerCase($atributoCorrente.Name)}Field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+						obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = arg0.getSelectedItem().toString();
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+			/***FIM Spinner para tipo String**/
+	#end
+		#end
+		
+		##gerar radiobutton
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input == "radiobutton" && $atributoCorrente.TypeDataData == "String")
+			/***INICIO radioButton para tipo String**/
+// metodo para radioButton
+obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = "";	
+			RadioButton radio$utility.firstToUpperCase($atributoCorrente.Name) =  new RadioButton(this);
+			radio${utility.firstToUpperCase($atributoCorrente.Name)}.setText("opcao 1");
+			radio${utility.firstToUpperCase($atributoCorrente.Name)}.setChecked(false);
+							${utility.firstToLowerCase($atributoCorrente.Name)}Field.addView(radio$utility.firstToUpperCase($atributoCorrente.Name));
+			radio${utility.firstToUpperCase($atributoCorrente.Name)} =  new RadioButton(this);
+			radio${utility.firstToUpperCase($atributoCorrente.Name)}.setText("opcao 2");
+			radio${utility.firstToUpperCase($atributoCorrente.Name)}.setChecked(false);
+							${utility.firstToLowerCase($atributoCorrente.Name)}Field.addView(radio$utility.firstToUpperCase($atributoCorrente.Name));
+		
+		
+		//pegar o radiobutton selecionado de um radio group
+		${utility.firstToLowerCase($atributoCorrente.Name)}Field.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup arg0, int arg1) {
+				//for para listar radiobutton presentes no radiogroup
+				for (int i = 0; i < arg0.getChildCount(); i++) {
+					RadioButton btn = (RadioButton) arg0.getChildAt(i);
+					//verificando se o radio button selecionado está marcado ou não
+					if(btn.getId() == arg1){
+						// pegando o nome do radio marcado
+						obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = String.valueOf(btn.getText());
+					}
+				}
+			}
+		});
+		#end
+		#end
+##fim gerar radiobutton
+		
+		Button botao = (Button) findViewById(R.id.ButtonSendFeedback);
+		botao.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				update();
+			}
+		});
+
+		Button botaoVoltar = (Button) findViewById(R.id.ButtonBack);
+		botaoVoltar.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				back();
+			}
+		});
+		## adicionando os valores dos campos quando for feita a alteração
+// INICIO adicionando os valores dos campos quando for feita a alteração
+		if(obj$utility.firstToUpperCase($class.Name) != null){
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input == "select" && $atributoCorrente.TypeDataData == "int")
+
+		// selecionar o que foi selecionado no cadastro
+			for (int i = 0; i < array${utility.firstToUpperCase($atributoCorrente.Classname)}.size(); i++) {
+			if(array${utility.firstToUpperCase($atributoCorrente.Classname)}.get(i).id${utility.firstToUpperCase($atributoCorrente.Classname)} == obj${utility.firstToUpperCase($class.Name)}.id${utility.firstToUpperCase($atributoCorrente.Classname)}){
+				${utility.firstToLowerCase($atributoCorrente.Name)}Field.setSelection(i);
+			}
+		}
+#elseif($atributoCorrente.Input == "select" && $atributoCorrente.TypeDataData == "String")
+
+		// selecionar o que foi selecionado no cadastro
+			for (int i = 0; i < listaItens${utility.firstToUpperCase($atributoCorrente.Name)}.size(); i++) {
+					if(listaItens${utility.firstToUpperCase($atributoCorrente.Name)}.get(i).toString().equals(obj$utility.firstToUpperCase($class.Name).$utility.firstToLowerCase($atributoCorrente.Name))){
+						${utility.firstToLowerCase($atributoCorrente.Name)}Field.setSelection(i);
+					}
+				}
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "String")			${utility.firstToLowerCase($atributoCorrente.Name)}Field.setText(String.valueOf(obj${utility.firstToUpperCase($class.Name)}.$utility.firstToLowerCase($atributoCorrente.Name)#if(${atributoCorrente.TypeDataData} != "int").toString()));#else));#end
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "int")			${utility.firstToLowerCase($atributoCorrente.Name)}Field.setText(String.valueOf(obj${utility.firstToUpperCase($class.Name)}.$utility.firstToLowerCase($atributoCorrente.Name)#if(${atributoCorrente.TypeDataData} != "int").toString()));#else));#end
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "Long")			${utility.firstToLowerCase($atributoCorrente.Name)}Field .setText(String.valueOf(obj${utility.firstToUpperCase($class.Name)}.$utility.firstToLowerCase($atributoCorrente.Name)#if(${atributoCorrente.TypeDataData} != "int").toString()));#else));#end
+#elseif($atributoCorrente.Input == "checkbox" && $atributoCorrente.TypeDataData == "Boolean")			${utility.firstToLowerCase($atributoCorrente.Name)}Field.setChecked(obj${utility.firstToUpperCase($class.Name)}.$utility.firstToLowerCase($atributoCorrente.Name));
+#elseif($atributoCorrente.Input == "radiobutton" && $atributoCorrente.TypeDataData == "String")			for (int i = 0; i < ${utility.firstToLowerCase($atributoCorrente.Name)}Field.getChildCount(); i++){
+					RadioButton btn = (RadioButton) ${utility.firstToLowerCase($atributoCorrente.Name)}Field.getChildAt(i);
+					//verificando se o radio button selecionado está marcado ou não
+					if(btn.getText().equals(obj${utility.firstToUpperCase($class.Name)}.$utility.firstToLowerCase($atributoCorrente.Name)) ){
+						// pegando o nome do radio marcado
+						btn.setChecked(true);
+					}
+				}
+#end#end
+		}else{
+			Toast.makeText(this, "Nenhum dado foi encontrado.", 
+					Toast.LENGTH_LONG).show();
+		}
+		//FIM adicionando os valores dos campos quando for feita a alteração
+	}
+protected boolean validation($utility.firstToUpperCase($class.Name)VO obj${utility.firstToLowerCase($class.Name)}Inserir) {
+String campos="";
+	#foreach($atributoCorrente in $class.attributes) #set($count = $velocityCount)#end
+	if(!(#foreach($atributoCorrente in $class.attributes)#if(${atributoCorrente.PrimaryKey_table} != "true")#if($atributoCorrente.TypeDataData == "String")String.valueOf(obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name)).toString().equals("")
+	#elseif($atributoCorrente.TypeDataData == "Long" || $atributoCorrente.TypeDataData == "int") obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) == 0
+	#elseif($atributoCorrente.TypeDataData == "Boolean") obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) == null
+	#end#if($velocityCount < $count)||
+	#end#end#end)){
+	return true;
+		}
+		else{
+		#foreach($atributoCorrente in $class.attributes)#if(${atributoCorrente.PrimaryKey_table} != "true")#if($atributoCorrente.TypeDataData == "String")if(String.valueOf(obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name)).toString().equals("")){
+		campos = campos + "- ${atributoCorrente.Exhibitionname}\n";}
+	#elseif($atributoCorrente.TypeDataData == "Long" || $atributoCorrente.TypeDataData == "int") if(obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) == 0){
+	campos = campos + "- ${atributoCorrente.Exhibitionname}\n";}
+	#elseif($atributoCorrente.TypeDataData == "Boolean") if(obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) == null){
+	campos = campos + "- ${atributoCorrente.Exhibitionname}\n";}
+	#end#end#end
+new AlertDialog.Builder(this).setTitle(this.getResources()
+					.getString(R.string.app_name)).setMessage(
+					"Os campos:\n" + campos + " esta(ão) vazios.\n" +
+					"Complete todos os campos. Tente novamente.")
+					.setPositiveButton("continue", 
+							new android.content.DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface arg0,
+								int arg1) {
+						}
+					}).show();
+			return false;
+		}
+	}
+
+
+	private void update(){
+	try {
+		Intent data = new Intent();
+		Log.i(tag,"onClick invoked.");
+
+		/*******INSERÇÃO NO BD********/
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input == "hidden")
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = Integer.parseInt(valor);
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "String")
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = ${utility.firstToLowerCase($atributoCorrente.Name)}Field.getText().toString();
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "int")
+if(${utility.firstToLowerCase($atributoCorrente.Name)}Field.getText().toString().equals(""))
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = 0;
+			else
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = Integer.parseInt(${utility.firstToLowerCase($atributoCorrente.Name)}Field.getText().toString());
+#elseif($atributoCorrente.Input == "text" && $atributoCorrente.TypeDataData == "Long")
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = Long.parseLong(${utility.firstToLowerCase($atributoCorrente.Name)}Field.getText().toString());
+#elseif($atributoCorrente.Input == "checkbox" && $atributoCorrente.TypeDataData == "Boolean")
+			obj${utility.firstToUpperCase($class.Name)}Inserir.$utility.firstToLowerCase($atributoCorrente.Name) = ${utility.firstToLowerCase($atributoCorrente.Name)}Field.isChecked();
+#end
+#end
+
+		if(validation(obj${utility.firstToUpperCase($class.Name)}Inserir)){
+
+			idB = Fachada.getInstance().update$utility.firstToUpperCase($class.Name)(this,obj${utility.firstToUpperCase($class.Name)}Inserir);
+
+			Log.i(tag, "The update have a return equal ["+ idB +"]");
+
+			if(idB == -1 || idB == 0){
+				message = "Não foi possivel efetuar a alteração.";
+			}else{
+				message = "Alteração efetuada com sucesso.";
+				data.putExtra("valor", message);
+				setResult(2,data);
+				finish();
+			}
+		}else{
+			message = "Complete todos os campos. Tente novamente.";
+		}
+		} catch (Exception e) {
+				ConnectionException.erro(this, e.toString());
+			}		
+	}
+
+	private void back() {
+		Intent data = new Intent();
+		data.putExtra("valor", "Voltar");
+		setResult(2,data);
+		finish();
+
+	}
+
+	//metodo para enviar o resultado para a tela anterior
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	#foreach($atributoCorrente in $class.Attributes)
+	#if($atributoCorrente.Input == "hidden") 
+		${utility.firstToLowerCase($atributoCorrente.Name)}Field.setText(data.getExtras().getString("valor"));
+		#end
+		#end
+	}
+
+}

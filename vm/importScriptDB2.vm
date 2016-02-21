@@ -1,0 +1,1 @@
+ db.execSQL(SCRIPT_DB_DELETE_$utility.AllToUpperCase($class.Name));

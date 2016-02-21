@@ -1,0 +1,25 @@
+package fachada;
+
+import android.content.Context;
+import java.util.ArrayList;
+#include("$nome_projeto\src\fachada\temp\imports.txt")
+
+ /**@author Willamys Araujo
+ **Generate for Implementor**/
+ 
+public class Fachada{
+
+	public static Fachada fachada = null; 
+
+	public Fachada() {
+	}
+	/***metodo estático para obter a instância da classe Fachada ***/
+	public static Fachada getInstance() {
+		if(fachada == null){
+			fachada = new Fachada();
+		}
+		return fachada;
+	}
+	
+	#include("$nome_projeto\src\fachada\temp\metodos.txt")
+	}

@@ -1,0 +1,14 @@
+
+			private static final String SCRIPT_DB_DELETE_$utility.AllToUpperCase($class.Name) = 
+			"DROP TABLE IF EXISTS t$utility.firstToLowerCase($class.Name)";
+			
+			private static final String SCRIPT_DB_CREATE_$utility.AllToUpperCase($class.Name) = 
+			"create table t$utility.firstToLowerCase($class.Name)("
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.PrimaryKey == "true" && $atributoCorrente.PrimaryKey_table == "true")
+			#if($velocityCount >= 1)+"$atributoCorrente.Columntable integer primary key autoincrement not null #if($velocityCount < $class.Attributes.size()),#end#end"
+#else#if($velocityCount > 1)
+			+"$atributoCorrente.Columntable #if($atributoCorrente.Type == "String") text #elseif($atributoCorrente.Type == "int") integer #elseif($atributoCorrente.Type == "Long") integer #elseif($atributoCorrente.Type == "Boolean") integer #end not null #if($velocityCount < $class.Attributes.size()),#end#end"
+#end#end
+			+");";
+			

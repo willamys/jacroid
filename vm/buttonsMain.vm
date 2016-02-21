@@ -1,0 +1,10 @@
+/**Botão para abrir o CRUD da Classe $utility.firstToUpperCase($class.name)*/
+		Button button$utility.firstToUpperCase($class.name) = (Button) findViewById(R.id.Button$utility.firstToUpperCase($class.name));
+		button$utility.firstToUpperCase($class.name) .setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(Main.this, $utility.firstToUpperCase($class.name)Activity .class);
+				startActivity(i);
+			}
+		});
+		

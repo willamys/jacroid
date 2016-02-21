@@ -1,0 +1,14 @@
+## class.vm
+package modelo;
+import java.util.*;
+import java.io.Serializable;
+
+ /**@author Willamys Araujo
+ **Generate for Implementor**/
+
+public class $utility.firstToUpperCase($class.Name)VO implements Serializable{
+
+#foreach($atributoCorrente in $class.Attributes)
+  public $atributoCorrente.Type $atributoCorrente.Name;
+#end
+}

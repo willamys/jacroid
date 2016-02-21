@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/ScrollView01"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+	
+	<LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	    <TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="CRUD $utility.firstToUpperCase($class.Name)"
+	    />
+		   	<Button
+		    	android:id="@+id/ButtonSendFeedbackCadastrar"
+		    	android:layout_height="wrap_content"
+		    	android:text="Cadastrar"
+		    	android:layout_width="fill_parent">
+		    </Button>
+		    
+		    <Button
+		    	android:id="@+id/ButtonSendFeedbackListar"
+		    	android:layout_height="wrap_content"
+		    	android:text="Listar"
+		    	android:layout_width="fill_parent">
+		    </Button>  
+		    
+		    <Button 
+		    android:id="@+id/ButtonBack" 
+		    android:layout_height="wrap_content"
+			    android:text="Voltar Principal"
+			    android:layout_width="fill_parent">
+			    </Button>
+		    
+		   
+		<TextView
+		android:id="@+id/textomain"  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"
+	    />
+		    
+    </LinearLayout>
+</ScrollView>

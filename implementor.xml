@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Classe>
+<class classname="Turma" tablename="turma">
+<attributes classname="" column="true" columntable="idTurma" exhibitionname="idTurma" input="hidden" name="idTurma" primarykey="true" primarykey_table="true" type="int"/>
+<attributes classname="" column="true" columntable="nome" exhibitionname="nome" input="text" name="nome" primarykey="false" primarykey_table="false" type="String"/>
+<attributes classname="Aluno" column="true" columntable="alunodaturma" exhibitionname="alunodaturma" input="select" name="idAluno" primarykey="true" primarykey_table="false" type="int"/>
+</class>
+<class classname="Aluno" tablename="aluno">
+<attributes classname="" column="true" columntable="idAluno" exhibitionname="idAluno" input="hidden" name="idAluno" primarykey="true" primarykey_table="true" type="int"/>
+<attributes classname="" column="true" columntable="nome" exhibitionname="nome" input="text" name="nome" primarykey="false" primarykey_table="false" type="String"/>
+<attributes classname="" column="true" columntable="idade" exhibitionname="idade" input="text" name="idade" primarykey="false" primarykey_table="false" type="String"/>
+</class>
+</Classe>

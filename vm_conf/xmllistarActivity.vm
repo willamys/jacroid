@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/app_layout" android:orientation="horizontal"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<!-- SCENE -->
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/scene_layout" android:drawingCacheQuality="low"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+		<my_package.TwoDScrollView
+			android:id="@+id/scene_scroller" android:drawingCacheQuality="low"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/scene_container" android:drawingCacheQuality="low"
+				android:layout_width="720dip" android:layout_height="481dip">
+				<TableLayout android:id="@+id/table"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+						#foreach($atributoCorrente in $class.Attributes) #set($count = $velocityCount)#end
+			android:stretchColumns="0,1,#foreach($atributoCorrente in $class.Attributes)#set($c = $velocityCount + 1)${c}#if($velocityCount < $count),#end#end"
+					android:scrollbars="vertical">
+						<TableRow>
+    	#foreach($atributoCorrente in $class.Attributes)
+		    <TextView
+		    android:id="@+id/TextView$atributoCorrente.Name"
+            android:text="$atributoCorrente.Exhibitionname"
+            android:textSize="11px"
+            android:maxWidth="10px"
+		    />
+		    #end
+		    <TextView android:id="@+id/TextViewUpdate" android:text="Update"
+		    android:textSize="11px" android:maxWidth="5px" />
+		    <TextView android:id="@+id/TextViewDelete" android:text="Delete"
+		    android:textSize="11px" android:maxWidth="5px" />
+	    </TableRow>
+				</TableLayout>
+			</LinearLayout>
+		</my_package.TwoDScrollView>
+	</LinearLayout>
+</LinearLayout>

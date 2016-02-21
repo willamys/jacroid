@@ -1,0 +1,192 @@
+package telas;
+
+import java.util.ArrayList;
+import modelo.$utility.firstToUpperCase($class.Name)VO;
+import fachada.Fachada;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.src.android.R;
+
+ /**@author Willamys Araujo
+ **Generate for Jacroid**/
+
+public class $utility.firstToUpperCase($class.Name)ListarActivity extends Activity{
+
+
+	public static final String tag = "$utility.firstToUpperCase($class.Name)ListarActivity";
+	#foreach($atributoCorrente in $class.Attributes)
+	TextView tviewColumn$utility.firstToUpperCase($atributoCorrente.Name);
+#end
+	long aux;
+	TableRow row;
+	TableLayout tableLayout;
+	ArrayList<$utility.firstToUpperCase($class.Name)VO> array$utility.firstToUpperCase($class.Name) = new ArrayList<$utility.firstToUpperCase($class.Name)VO>();
+	ArrayList<View> arrayView = new ArrayList<View>();
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.$utility.AllToLowerCase($class.Name)listaractivity);
+		clearTable();
+		createTable();
+		addBotaoVoltar();
+	}
+	
+	private void addBotaoVoltar() {
+		
+		TableRow row =  new TableRow(this);
+		Button botao = new Button(this);
+		botao.setText("voltar");
+		botao.setTextSize(10);
+		botao.setPadding(0, 0, 5, 0);
+		botao.setHeight(5);
+		botao.setWidth(5);
+		botao.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent data = new Intent();
+				data.putExtra("valor", "voltar");
+				setResult(2,data);
+				finish();
+			}
+		});
+		row.addView(botao);
+		tableLayout.addView(row);
+		
+	}
+	
+	private void createTable() {
+array$utility.firstToUpperCase($class.Name) = Fachada.getInstance().getAll$utility.firstToUpperCase($class.Name)(this);
+		
+		#foreach($atributoCorrente in $class.Attributes)
+		tviewColumn$utility.firstToUpperCase($atributoCorrente.Name) = (TextView) findViewById(R.id.TextView$utility.firstToLowerCase($atributoCorrente.Name));
+		tviewColumn${utility.firstToUpperCase($atributoCorrente.Name)}.setTextSize(10f);
+		tviewColumn${utility.firstToUpperCase($atributoCorrente.Name)}.setLines(2);
+		#end
+		tableLayout =  new TableLayout(this);
+		tableLayout = (TableLayout) findViewById(R.id.table);
+		tableLayout.setPadding(20,10,20,0);
+		arrayView = new ArrayList<View>();
+		//escrevendo dados que buscados no BD
+if(array${utility.firstToUpperCase($class.Name)}.size() > 0 && array$utility.firstToUpperCase($class.Name) != null){
+			for (int i = 0; i < array${utility.firstToUpperCase($class.Name)}.size(); i++) {
+				
+				TableRow trow = new TableRow(this);
+				trow.setTag("trow"+i);
+				arrayView.add(trow);
+				
+				#foreach($atributoCorrente in $class.Attributes)
+				//**coluna$velocityCount
+				TextView tview$velocityCount = new TextView(this);
+				tview${velocityCount}.setTextSize(12);
+				tview${velocityCount}.setPadding(0, 0, 5, 0);
+				tview${velocityCount}.setText(String.valueOf(array${utility.firstToUpperCase($class.Name)}.get(i).$utility.firstToLowerCase($atributoCorrente.Name)));
+				tview${velocityCount}.setTag("view$velocityCount"+array${utility.firstToUpperCase($class.Name)}.get(i));
+				tview${velocityCount}.setMaxWidth(5);
+				#end
+				final Button update = new Button(this);
+				update.setText("Alterar");
+				update.setTextSize(12);
+				update.setPadding(0, 0, 5, 0);
+				update.setHeight(5);
+				update.setWidth(5);
+				update.setTag("view${velocityCount}"+array${utility.firstToUpperCase($class.Name)}.get(i));
+			update.setId(array${utility.firstToUpperCase($class.Name)}.get(i).#foreach($atributoCorrente in $class.Attributes) #if($atributoCorrente.Input == "hidden") $utility.firstToLowerCase($atributoCorrente.Name));#end#end
+				
+				update.setOnClickListener(new View.OnClickListener()
+				{
+					@Override
+					public void onClick(View v) {
+						Log.i(tag, "on click " + update.getId());
+						Intent i =  new Intent(${utility.firstToUpperCase($class.Name)}ListarActivity.this, ${utility.firstToUpperCase($class.Name)}AlterarActivity.class);
+		        		i.putExtra("valor", String.valueOf(update.getId()));
+		        		startActivityForResult(i, 1);
+					}
+				});
+				
+				
+				final Button delete = new Button(this);
+				delete.setText("Delete");
+				delete.setTextSize(12);
+				delete.setPadding(0, 0, 5, 0);
+				delete.setHeight(5);
+				delete.setWidth(5);
+				delete.setTag("view${velocityCount}"+array${utility.firstToUpperCase($class.Name)}.get(i));
+			delete.setId(array${utility.firstToUpperCase($class.Name)}.get(i).#foreach($atributoCorrente in $class.Attributes) #if($atributoCorrente.Input == "hidden") $utility.firstToLowerCase($atributoCorrente.Name));#end#end
+				
+				
+				delete.setOnClickListener(new View.OnClickListener()
+				{
+					@Override
+					public void onClick(View v) {
+						Log.i(tag, "on click " + delete.getId());
+							delete(delete.getId());
+					}
+				});
+				#foreach($atributoCorrente in $class.Attributes)
+				//adicionando a linha
+				trow.addView(tview$velocityCount);
+#end
+		trow.addView(update);
+		trow.addView(delete);
+				//adicionando a coluna
+				tableLayout.addView(trow);
+			}
+			}
+	}
+	
+	private void clearTable() {
+		int tam =  arrayView.size();
+		for (int i = 0; i < arrayView.size(); i++) {
+			tableLayout.removeView(arrayView.get(i).findViewWithTag("trow"+i));
+		}
+	}
+	
+	public boolean delete(int id){
+		aux = id;
+		new AlertDialog.Builder(this).setTitle(this.getResources()
+				.getString(R.string.app_name)).setMessage(
+				"Voce realmente deseja deletar?").setPositiveButton("SIM", 
+				new android.content.DialogInterface.OnClickListener(){
+							@Override
+							public void onClick(DialogInterface arg0,
+									int arg1) {
+								String message = "";
+								long ret = Fachada.getInstance().delete$utility.firstToUpperCase($class.Name)(${utility.firstToUpperCase($class.Name)}ListarActivity.this, aux);
+								if( ret != -1 && ret != 0){
+									message = "Delete efetuado com sucesso.";
+									clearTable();
+							createTable();
+								}else{
+									message = "Nao foi possivel efetuar o delete.";
+								}
+								Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+							}
+						}).setNegativeButton("No", new android.content.DialogInterface.OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						}).show();
+		return false;
+	}
+	
+	 public void onActivityResult(int requestCode, int resultCode,
+			 Intent data) {
+		 	Toast.makeText(this,data.getExtras().getString("valor"), Toast.LENGTH_LONG).show();
+	clearTable();
+		createTable();
+	}
+}

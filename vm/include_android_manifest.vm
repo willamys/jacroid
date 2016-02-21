@@ -1,0 +1,6 @@
+		
+		<activity android:name="telas.$utility.firstToUpperCase($class.Name)Activity"></activity>
+		<activity android:name="telas.$utility.firstToUpperCase($class.Name)CadastrarActivity"></activity>
+		<activity android:name="telas.$utility.firstToUpperCase($class.Name)AlterarActivity"></activity>
+		<activity android:name="telas.$utility.firstToUpperCase($class.Name)ListarActivity"></activity>
+		

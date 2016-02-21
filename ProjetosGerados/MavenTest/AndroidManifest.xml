@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.src.android" android:versionCode="1" android:versionName="1.0">
+	<application android:icon="@drawable/ico" android:label="@string/app_name">
+		<activity android:name="telas.Main" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name="telas.TurmaActivity"></activity>
+		<activity android:name="telas.TurmaCadastrarActivity"></activity>
+		<activity android:name="telas.TurmaAlterarActivity"></activity>
+		<activity android:name="telas.TurmaListarActivity"></activity>
+				
+		<activity android:name="telas.AlunoActivity"></activity>
+		<activity android:name="telas.AlunoCadastrarActivity"></activity>
+		<activity android:name="telas.AlunoAlterarActivity"></activity>
+		<activity android:name="telas.AlunoListarActivity"></activity>
+			</application>
+</manifest>

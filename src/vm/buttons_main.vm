@@ -1,0 +1,7 @@
+<Button
+		    	android:id="@+id/Button$utility.firstToUpperCase($class.Name)"
+		    	android:layout_height="wrap_content"
+		    	android:text="$utility.firstToUpperCase($class.Name)"
+		    	android:layout_width="fill_parent">
+		</Button>
+		

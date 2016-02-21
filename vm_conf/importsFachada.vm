@@ -1,0 +1,2 @@
+import modelo.$utility.firstToUpperCase($class.Name)DAO;	
+import modelo.$utility.firstToUpperCase($class.Name)VO;

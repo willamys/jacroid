@@ -1,0 +1,205 @@
+## classDAO.vm
+	package modelo;
+	import java.util.ArrayList;
+	import android.content.ContentValues;
+	import android.content.Context;
+	import android.database.Cursor;
+	import android.database.SQLException;
+	import android.database.sqlite.SQLiteDatabase;
+
+	/**@author Willamys Araujo
+	**Generate for Jacroid**/
+
+	public class $utility.firstToUpperCase($class.Name)DAO {
+
+		#foreach($atributoCorrente in $class.Attributes)
+public static final String KEY_$utility.AllToUpperCase($atributoCorrente.Name) = "$atributoCorrente.Columntable";
+		#end
+
+		/***@return
+	#foreach($atributoCorrente in $class.Attributes)
+		$atributoCorrente.TypeData $atributoCorrente.Name	
+	#end
+**/
+		private static final String DATABASE_TABLE = "t$utility.firstToLowerCase($class.Tablename)";
+
+		private SQLiteDatabase db;
+		
+		private long result = 0;
+		
+		private Context context;
+
+		
+		public $utility.firstToUpperCase($class.Name)DAO (Context ctx){
+			Connection dbHelper = new Connection(ctx);
+			this.context = ctx;
+			db = dbHelper.getWritableDatabase();
+		}
+
+		//---insert $utility.firstToUpperCase($class.Name)---//
+		/***
+		 * @return long
+		 * db.insert()
+		 *  table
+		 *  column
+		 *  initialvalues
+		 * **/
+		public long insert$utility.firstToUpperCase($class.Name)($utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name)) 
+		{
+		try{
+			ContentValues initialValues = new ContentValues();
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input != "hidden")
+#if($atributoCorrente.Input == "checkbox")
+			if(obj$utility.firstToUpperCase($class.Name).$utility.firstToLowerCase($atributoCorrente.Name) == true){
+				initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name),1);
+			}else{
+				initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name),0);
+			}
+#else
+			initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name), obj$utility.firstToUpperCase($class.Name).$utility.firstToLowerCase($atributoCorrente.Name));
+#end#end#end
+			result = db.insert(DATABASE_TABLE, null, initialValues);
+			db.close();
+			}catch (Exception e) {
+			ConnectionException.erro(context, "Ocorreu um erro ao tentar inserir os dados.\n Erro:\n" + e.toString());
+		}
+			return result;
+		}
+
+		//---deletes a particular $utility.firstToUpperCase($class.Name)---
+		/**
+		 * @return boolean
+		 * db.delete()
+		 *  table
+		 *  whereClause
+		 *  whereArgs
+		 * **/
+		public long delete$utility.firstToUpperCase($class.Name)(long rowId) 
+		{
+		try{
+			result = db.delete(DATABASE_TABLE, #foreach($atributoCorrente in $class.Attributes)#if($atributoCorrente.PrimaryKey_table == true)KEY_$utility.AllToUpperCase($atributoCorrente.Name)#end#end + "=" + rowId, null);
+			db.close();
+			}catch (Exception e) {
+			ConnectionException.erro(context, "Ocorreu um erro ao tentar excluir os dados.\n Erro:\n" + e.toString());
+		}
+			return result;
+		}
+
+		//---retrieves all the $utility.firstToUpperCase($class.Name)---
+
+		/**metodo query 
+		 * @return Cursor
+		 * db.query
+		 *  table
+		 *  String[] columns
+		 *  String selection
+		 *  selectionArgs
+		 *  groupby
+		 *  having
+		 *  orderby
+		 * **/
+		public ArrayList<$utility.firstToUpperCase($class.Name)VO> getAll$utility.firstToUpperCase($class.Name)() 
+		{
+		ArrayList<$utility.firstToUpperCase($class.Name)VO> array$utility.firstToUpperCase($class.Name)VO = new ArrayList<$utility.firstToUpperCase($class.Name)VO>();
+		try{
+		Cursor c = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ; ",null);
+		if(c.moveToFirst()){
+			do{
+				$utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name) = new $utility.firstToUpperCase($class.Name)VO();
+	#foreach($atributoCorrente in $class.Attributes)#set($count = $velocityCount - 1)
+			#if($atributoCorrente.TypeData =="int")obj$utility.firstToUpperCase($class.Name).$atributoCorrente = Integer.parseInt(c.getString($count).toString());
+	#elseif($atributoCorrente.TypeData =="String")					obj$utility.firstToUpperCase($class.Name).$atributoCorrente = c.getString($count).toString();
+	#elseif($atributoCorrente.TypeData =="Boolean")
+if(c.getString($count).toString().equals("0")){
+					obj$utility.firstToUpperCase($class.Name).$atributoCorrente =  false;
+				}else{
+					obj$utility.firstToUpperCase($class.Name).$atributoCorrente =  true;
+					}
+	#elseif($atributoCorrente.TypeData =="Long")$utility.firstToUpperCase($class.Name)Vo.$atributoCorrente = Long.parseLong(c.getString($count).toString());
+			#end#end
+		array$utility.firstToUpperCase($class.Name)VO .add(obj$utility.firstToUpperCase($class.Name));
+			} while (c.moveToNext());
+		}
+				c.close();		
+		db.close();
+		} catch (Exception e) {
+			ConnectionException.erro(context, "Ocorreu um erro no processo de listar os dados.\n Erro:\n" + e.toString());
+		}
+
+		return array$utility.firstToUpperCase($class.Name)VO;
+		}
+
+
+		//---retrieves a particular $utility.firstToUpperCase($class.Name)---
+		/**metodo query 
+		 * @return Cursor
+		 * db.query
+		 *  table
+		 *  String[] columns
+		 *  String selection
+		 *  selectionArgs
+		 *  groupby
+		 *  having
+		 *  orderby
+		 * **/
+		public $utility.firstToUpperCase($class.Name)VO get$utility.firstToUpperCase($class.Name)ById(long rowId) throws SQLException 
+		{
+		$utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name) = new $utility.firstToUpperCase($class.Name)VO();
+		try{
+			Cursor c = db.rawQuery("SELECT * FROM "+ DATABASE_TABLE + " WHERE "+
+					#foreach($atributoCorrente in $class.Attributes)#if($atributoCorrente.PrimaryKey_table == true)KEY_$utility.AllToUpperCase($atributoCorrente.Name)#end#end + "=" + rowId + ";", null);
+			if (c != null) {
+			c.moveToFirst();
+	#foreach($atributoCorrente in $class.Attributes)#set($count = $velocityCount - 1)
+			#if($atributoCorrente.TypeData =="int")obj$utility.firstToUpperCase($class.Name).$atributoCorrente = Integer.parseInt(c.getString($count).toString());
+	#elseif($atributoCorrente.TypeData =="String")					obj$utility.firstToUpperCase($class.Name).$atributoCorrente = c.getString($count).toString();
+	#elseif($atributoCorrente.TypeData =="Boolean")	
+if(c.getString($count).toString().equals("0")){
+					obj$utility.firstToUpperCase($class.Name).$atributoCorrente =  false;
+				}else{
+					obj$utility.firstToUpperCase($class.Name).$atributoCorrente =  true;
+					} 
+	#elseif($atributoCorrente.TypeData =="Long")obj$utility.firstToUpperCase($class.Name).$atributoCorrente = Long.parseLong(c.getString($count).toString());
+			#end#end
+		}
+		c.close();
+		db.close();
+		} catch (Exception e) {
+			ConnectionException.erro(context, "Ocorreu um erro no processo de buscar as informações para alteração.\n Erro:\n" + e.toString());
+		}
+		return obj$utility.firstToUpperCase($class.Name);
+		}
+
+		//---updates a $utility.firstToUpperCase($class.Name)---
+		/**@return boolean
+		 *  table
+		 *  values
+		 *  whereClause
+		 *  whereArgs 
+		 * **/
+		public long update$utility.firstToUpperCase($class.Name)($utility.firstToUpperCase($class.Name)VO obj$utility.firstToUpperCase($class.Name)) 
+		{
+		try{
+			ContentValues initialValues = new ContentValues();
+#foreach($atributoCorrente in $class.Attributes)
+#if($atributoCorrente.Input != "hidden")
+#if($atributoCorrente.Input == "checkbox")
+			if(obj$utility.firstToUpperCase($class.Name).$utility.firstToLowerCase($atributoCorrente.Name) == true){
+			initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name),1);
+			}else{
+			initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name),0);
+			}
+#else
+			initialValues.put(KEY_$utility.AllToUpperCase($atributoCorrente.Name), obj$utility.firstToUpperCase($class.Name).$utility.firstToLowerCase($atributoCorrente.Name));
+#end#end#end
+			result = db.update(DATABASE_TABLE, initialValues, 
+			#foreach($atributoCorrente in $class.Attributes)#if($atributoCorrente.PrimaryKey_table == true)KEY_$utility.AllToUpperCase($atributoCorrente.Name)#end#end + "=" + obj$utility.firstToUpperCase($class.Name).#foreach($atributoCorrente in $class.Attributes)#if($atributoCorrente.PrimaryKey_table == true)$utility.firstToLowerCase($atributoCorrente.Name)#end#end, null);
+			db.close();
+			} catch (Exception e) {
+			ConnectionException.erro(context, "Ocorreu um erro ao tentar alterar os dados." + e.toString());
+		}
+			return result;
+		}
+	}
+	

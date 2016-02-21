@@ -1,0 +1,65 @@
+/***INICIO $class.Name**/
+
+	/***metodo de insercao de $class.Name*
+	*  ctx passar contexto do view que esta em uso
+	*  $utility.firstToLowerCase($class.Name) passar o objeto prenchido com valores dos atributos
+	* @return long - se o valor retornado for:
+	* -1 a "insercao falhou"
+	*  1 a "inserido com sucesso" **/
+	public long insert$utility.firstToUpperCase($class.Name)(Context ctx, $utility.firstToUpperCase($class.Name)VO $utility.firstToLowerCase($class.Name)) {
+	$utility.firstToUpperCase($class.Name)DAO $utility.firstToLowerCase($class.Name)Dao = new $utility.firstToUpperCase($class.Name)DAO(ctx);
+		if($utility.firstToLowerCase($class.Name) == null){
+			return -1;
+		}else{
+			return $utility.firstToLowerCase($class.Name)Dao. insert$utility.firstToUpperCase($class.Name) ($utility.firstToLowerCase($class.Name));
+		}
+	}
+	/***metodo de alteracao de $class.Name*
+	*  ctx passar contexto do view que esta em uso**
+	*  $utility.firstToLowerCase($class.Name) passar o objeto prenchido com valores dos atributos
+	* @return long - se o valor retornado for:
+	* -1 a "alteracao falhou"
+	*  1 a "alterado com sucesso" ***/
+	public long update$utility.firstToUpperCase($class.Name)(Context ctx, $utility.firstToUpperCase($class.Name)VO $utility.firstToLowerCase($class.Name)) {
+		$utility.firstToUpperCase($class.Name)DAO $utility.firstToLowerCase($class.Name)Dao = new $utility.firstToUpperCase($class.Name)DAO(ctx);
+		if($utility.firstToLowerCase($class.Name) == null){
+			return -1;
+		}else{
+			return $utility.firstToLowerCase($class.Name)Dao. update$utility.firstToUpperCase($class.Name) ($utility.firstToLowerCase($class.Name));
+		}
+	}
+	/***metodo de insercao de $class.Name**
+	*  ctx passar contexto do view que esta em uso**
+	*  id passar o id que do registro a ser deletado
+	* @return long - se o valor retornado for:
+	* -1 a "delete falhou"
+	*  1 a "delete com sucesso" **/
+	public long delete$utility.firstToUpperCase($class.Name)(Context ctx, long id) {
+	$utility.firstToUpperCase($class.Name)DAO $utility.firstToLowerCase($class.Name)Dao = new $utility.firstToUpperCase($class.Name)DAO(ctx);
+		if(id == 0 || id < 0){
+			return -1;
+		}else{
+			return $utility.firstToLowerCase($class.Name)Dao. delete$utility.firstToUpperCase($class.Name) (id);
+		}
+	}
+	/***metodo de listar todos os registros de $class.Name**
+	*  ctx passar contexto do view que esta em uso
+	* @return ArrayList de Objeto da classe $class.Name preenchidos**/
+	public ArrayList<$utility.firstToUpperCase($class.Name)VO> getAll$utility.firstToUpperCase($class.Name)(Context ctx) {
+	$utility.firstToUpperCase($class.Name)DAO $utility.firstToLowerCase($class.Name)Dao = new $utility.firstToUpperCase($class.Name)DAO(ctx);
+		return $utility.firstToLowerCase($class.Name)Dao. getAll$utility.firstToUpperCase($class.Name) (); 
+	}
+	/***metodo de listar registro por Id de $class.Name**
+	*  ctx passar contexto do view que esta em uso**
+	*  id passar o id que do registro a ser buscado
+	* @return Objeto da classe $class.Name preenchido**/
+	public $utility.firstToUpperCase($class.Name)VO get$utility.firstToUpperCase($class.Name)ById(Context ctx, long id) {
+	$utility.firstToUpperCase($class.Name)DAO $utility.firstToLowerCase($class.Name)Dao = new $utility.firstToUpperCase($class.Name)DAO(ctx);
+		if(id == 0 || id < 0){
+			return null;
+		}else{
+			return $utility.firstToLowerCase($class.Name)Dao. get$utility.firstToUpperCase($class.Name)ById (id);
+		}
+	}
+	/***FIM $class.Name****/
+

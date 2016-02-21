@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/ScrollView01"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+    <LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Tela de Cadastro de $class.Name"
+/>
+#foreach($atributoCorrente in $class.Attributes)
+	#if($atributoCorrente.Input == "text")  
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="$atributoCorrente.Name"
+/>
+ <EditText
+    	android:id="@+id/EditText$atributoCorrente.Name"  
+    	android:layout_height="wrap_content"
+    	#if($atributoCorrente.TypeData == "int" || $atributoCorrente.TypeData == "Long")
+    	 	android:inputType="number"
+    	#else
+    		android:inputType="textLongMessage"
+    		#end
+    	android:layout_width="fill_parent" >
+</EditText>
+#elseif($atributoCorrente.Input == "hidden")
+	#elseif($atributoCorrente.Input == "select")
+	 <TextView
+    	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="$atributoCorrente.Exhibitionname">
+</TextView>
+	<Spinner 
+    	android:id="@+id/Spinner$atributoCorrente.Name"
+    	android:layout_height="wrap_content"
+    	android:layout_width="fill_parent">
+	</Spinner>
+	#elseif($atributoCorrente.Input == "checkbox")
+		 <TextView
+    	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="$atributoCorrente.Exhibitionname">
+</TextView> 
+	<CheckBox
+    	android:id="@+id/CheckBox$atributoCorrente.Name"  
+    	android:layout_height="wrap_content"
+    	android:layout_width="fill_parent" >
+</CheckBox>
+	#elseif($atributoCorrente.Input == "radiobutton")
+		 <TextView
+    	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="$atributoCorrente.Exhibitionname">
+</TextView> 
+	<RadioGroup
+    	android:id="@+id/RadioGroup$atributoCorrente.Name"  
+    	android:layout_height="wrap_content"
+    	android:layout_width="fill_parent" >
+</RadioGroup>
+	 #end#end	
+   	<Button
+    	android:id="@+id/ButtonSendFeedback"
+    	android:layout_height="wrap_content"
+    	android:text="Cadastrar"
+    	android:layout_width="fill_parent">
+    </Button> 
+    <Button
+    	android:id="@+id/ButtonBack"
+    	android:layout_height="wrap_content"
+    	android:text="Voltar"
+    	android:layout_width="fill_parent">
+    </Button> 
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/ScrollView01"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+    <LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Tela de Cadastro de Aluno"
+/>
+			<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="nome"
+/>
+ <EditText
+    	android:id="@+id/EditTextnome"  
+    	android:layout_height="wrap_content"
+    	    		android:inputType="textLongMessage"
+    		    	android:layout_width="fill_parent" >
+</EditText>
+	<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="idade"
+/>
+ <EditText
+    	android:id="@+id/EditTextidade"  
+    	android:layout_height="wrap_content"
+    	    		android:inputType="textLongMessage"
+    		    	android:layout_width="fill_parent" >
+</EditText>
+   	<Button
+    	android:id="@+id/ButtonSendFeedback"
+    	android:layout_height="wrap_content"
+    	android:text="Cadastrar"
+    	android:layout_width="fill_parent">
+    </Button> 
+    <Button
+    	android:id="@+id/ButtonBack"
+    	android:layout_height="wrap_content"
+    	android:text="Voltar"
+    	android:layout_width="fill_parent">
+    </Button> 
+    </LinearLayout>
+</ScrollView>
